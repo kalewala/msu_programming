@@ -4,6 +4,9 @@
 Python 3.10.7
 """
 
+import numpy as np
+
+
 # функция сортировки слиянием
 def merge_sort(lst):
     
@@ -32,5 +35,16 @@ def merge_sort(lst):
 
 
 # принимаемые параметры
-file_name = input()  # имя файла для сортировки
-n = int(input())  # количество чисел из файла для загрузки в память
+#file_name = input()  # имя файла для сортировки
+#n = int(input())  # количество чисел из файла для загрузки в память
+
+file_name = "Parallel_sort/input.npy"
+
+# открытие бинарного файла
+lst = np.load("Parallel_sort/input.npy")
+
+
+print(lst)
+lst = list(lst)
+lst = merge_sort(lst)
+print(lst)

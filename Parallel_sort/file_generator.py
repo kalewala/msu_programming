@@ -11,9 +11,9 @@ import numpy as np
 # случайный массив int32
 lst = np.random.randint(-2147483648,
                         high=2147483647,
-                        size=20,
+                        size=8,
                         dtype="int32")
 
 # запись бинарного файла
-with open('Parallel_sort/input.npy', 'wb') as f:
+with open("Parallel_sort/input.npy", "wb") as f:
     np.save(f, lst)
