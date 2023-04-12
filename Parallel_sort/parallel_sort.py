@@ -5,32 +5,33 @@ Python 3.10.7
 """
 
 import numpy as np
+from threading import Thread
 
 
 # функция сортировки слиянием
-def merge_sort(lst):
+def merge_sort(arr):
     
     def merge_lists(left, right):
         i, j = 0, 0
-        sort_list = []
-        while len(left) > i and len(right) > j:
+        sort_list = np.array([], dtype="int32")
+        while left.shape[0] > i and right.shape[0] > j:
             if left[i] < right[j]:
-                sort_list.append(left[i])
+                sort_list = np.append(sort_list, left[i])
                 i += 1
             else:
-                sort_list.append(right[j])
+                sort_list = np.append(sort_list, right[j])
                 j += 1
-        if len(left) > i:
-            sort_list += left[i:]
-        if len(right) > j:
-            sort_list += right[j:]
+        if left.shape[0] > i:
+            sort_list = np.append(sort_list, left[i:])
+        if right.shape[0] > j:
+            sort_list = np.append(sort_list, right[j:])
         return sort_list
     
-    if len(lst) == 1:
-        return lst
-    middle = len(lst) // 2
-    left = merge_sort(lst[:middle])
-    right = merge_sort(lst[middle:])
+    if arr.shape[0] == 1:
+        return arr
+    middle = arr.shape[0] // 2
+    left = merge_sort(arr[:middle])
+    right = merge_sort(arr[middle:])
     return merge_lists(left, right)
 
 
@@ -44,7 +45,7 @@ file_name = "Parallel_sort/input.npy"
 lst = np.load("Parallel_sort/input.npy")
 
 
-print(lst)
-lst = list(lst)
-lst = merge_sort(lst)
-print(lst)
+print("Input", lst)
+#lst = list(lst)
+#lst = merge_sort(lst)
+print("Sorted", merge_sort(lst))
