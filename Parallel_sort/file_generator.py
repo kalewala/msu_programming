@@ -11,7 +11,7 @@ import numpy as np
 # случайный массив int32
 lst = np.random.randint(-2147483648,
                         high=2147483647,
-                        size=8,
+                        size=128,
                         dtype="int32")
 
 # запись бинарного файла
