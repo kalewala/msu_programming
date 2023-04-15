@@ -1,5 +1,6 @@
 """
 Программа параллельной сортировки
+(на примере 2-ядерного процессора)
 
 Python 3.10.7
 """
@@ -10,18 +11,17 @@ import os
 
 
 # функция сортировки слиянием
-def merge_sort(arr) -> np.ndarray:
+def merge_sort(arr: np.ndarray) -> np.ndarray:
     """Сортировка слиянием для np.ndarray
     
-    Parameters
+    Parameter
     ----------
     arr (np.ndarray): массив для сортировки
 
-    Returns
+    Return
     -------
     merge_lists (np.ndarray): отсортированный массив
     """
-
     
     def merge_lists(left, right):
         i, j = 0, 0
@@ -44,51 +44,67 @@ def merge_sort(arr) -> np.ndarray:
     middle = arr.shape[0] // 2
     left = merge_sort(arr[:middle])
     right = merge_sort(arr[middle:])
+
     return merge_lists(left, right)
 
 
-def file_div(file_name, parts=4):
+# функция деления файла на части
+def file_div(file_name: str, n: int) -> int:
     """Функция деления файла на части
 
     Parameters
     ----------
     file_name (str): путь к файлу
-    parts (int): количество частей
-
-    Returns
-    -------
-    int:
-    """
+    n (int): количество байт для загрузки в оперативную память
     
+    Return
+    -------
+    parts (int): количество частей файла
+    """
+
     stats = os.stat(file_name)  # размер файла
-    print("Исходный файл", stats.st_size)  # 128 байт отводится под метаданные
-    size = stats.st_size - 128  # размер данных в файле
-    print("Размер данных", size)
-    #  определение точки остановки при чтении части файла
-    if size % parts == 0:
-        stop = size // parts
+    size = stats.st_size  # размер данных в файле
+
+    #  определение количества частей файла
+    if size % n == 0:
+        parts = size // n
     else:
-        stop = size // parts + 1
-    print(stop)
-    # цикл
-        # чтение части файла
-        # запись части файла
-    pass
+        parts = size // n + 1
+    
+    # чтение файла по частям и запись частей в отдельные файлы
+    with open(file_name, "rb") as f:
+        for i in range(1, parts + 1):
+            data = f.read(n)
+            with open(f"{file_name[:-4]}_{i}.bin", 'wb') as pf:
+                pf.write(data)
+    
+    # вывод информации о результате
+    print(f"Путь: {file_name}")
+    print(f"Размер файла: {size} байт")
+    print(f"Количество частей: {parts}")
+    print(f"Размер части: {n} байт")
+    return parts
 
 
-# принимаемые параметры
-#file_name = input()  # имя файла для сортировки
-#n = int(input())  # количество чисел из файла для загрузки в память
+def main():
+    file_name = input("Имя файла (путь): ")  # имя файла для сортировки
+    n = int(input("Количество чисел int32 для загрузки в оперативную память: "))
+    file_name = "Parallel_sort/input.bin"
+    n = 32
 
-file_name = "Parallel_sort/input.npy"
+    n *= 4  # количество байт для загрузки в опертивную память
+    parts = file_div(file_name, n)  # деление файла на части
+    
+    # сортировка частей
+    for i in range(1, parts + 1):
+        arr = np.fromfile(f"{file_name[:-4]}_{i}.bin", dtype=np.int32)  # чтение массива из части
+        arr = merge_sort(arr)  # сортировка
+        print(i, arr)
 
-# открытие бинарного файла
-lst = np.load("Parallel_sort/input.npy")
+        # запист отсортированной части
+        with open(f"Parallel_sort/output_{i}.bin", 'wb') as f:
+            f.write(arr)
 
 
-print("Input", lst)
-#lst = list(lst)
-#lst = merge_sort(lst)
-print("Sorted", merge_sort(lst))
-
-file_div(file_name)
+if __name__ == '__main__':
+    main()
