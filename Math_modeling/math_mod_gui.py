@@ -88,9 +88,9 @@ entry_dt = Entry(root, width=7)
 label_NT = Label(root, text='Количество шагов по времени NT:')
 entry_NT = Entry(root, width=7)
 entry_D.insert(0,'0.01')  # значения по умолчанию
-entry_N.insert(0,'1000')
+entry_N.insert(0,'1001')
 entry_dt.insert(0,'0.1')
-entry_NT.insert(0,'1000')
+entry_NT.insert(0,'1001')
 label_D.grid(row=1, column=0, sticky='e')  # расположение виджетов в окне
 entry_D.grid(row=1, column=1, sticky='w')
 label_N.grid(row=1, column=2, sticky='e')
