@@ -12,4 +12,4 @@ $$\mathnormal{u(0,t)} = \mathnormal{u(2\pi,t)}; \quad \partial _{x} \mathnormal{
   $\mathrm{dt}$ – шаг по времени, с которым будет двигаться программа  
   $\mathrm{NT}$ – количество шагов по времени, которые будет выполнять программа  
 
-![Скриншот окна программы](https://github.com/kalewala/msu_programming/raw/main/Math_modeling/Screen.jpg
+![Скриншот окна программы](https://github.com/kalewala/msu_programming/raw/main/Math_modeling/Screen.jpg)
