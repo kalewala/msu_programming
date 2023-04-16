@@ -11,3 +11,5 @@ $$\mathnormal{u(0,t)} = \mathnormal{u(2\pi,t)}; \quad \partial _{x} \mathnormal{
   $\mathrm{N}$ – количество узлов сетки по $\mathnormal{x}$ для численного метода  
   $\mathrm{dt}$ – шаг по времени, с которым будет двигаться программа  
   $\mathrm{NT}$ – количество шагов по времени, которые будет выполнять программа  
+
+![Скриншот окна программы](https://github.com/kalewala/msu_programming/edit/main/Math_modeling/Screen.jpg
