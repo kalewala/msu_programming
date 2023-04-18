@@ -11,7 +11,7 @@
 
 Файл данных – json такого формата:
 
-```jsons
+```json5
 [
     {
         "name": "Kevin Bacon",
