@@ -10,6 +10,9 @@ import os
 #from threading import Thread
 
 
+kernel = 2  # количество физических ядер центрального процессора
+
+
 # функция сортировки слиянием
 def merge_sort(arr: np.ndarray) -> np.ndarray:
     """Сортировка слиянием для np.ndarray
@@ -79,7 +82,7 @@ def file_div(file_name: str, n: int) -> int:
                 pf.write(data)
     
     # вывод информации о результате
-    print(f"Путь: {file_name}")
+    print(f"Имя файла (путь): {file_name}")
     print(f"Размер файла: {size} байт")
     print(f"Количество частей: {parts}")
     print(f"Размер части: {n} байт")
@@ -87,8 +90,8 @@ def file_div(file_name: str, n: int) -> int:
 
 
 def main():
-    file_name = input("Имя файла (путь): ")  # имя файла для сортировки
-    n = int(input("Количество чисел int32 для загрузки в оперативную память: "))
+    file_name = input("Введите имя файла (путь): ")  # имя файла для сортировки
+    n = int(input("Введите количество чисел int32 для загрузки в оперативную память: "))
     file_name = "Parallel_sort/input.bin"
     n = 32
 
@@ -101,7 +104,7 @@ def main():
         arr = merge_sort(arr)  # сортировка
         print(i, arr)
 
-        # запист отсортированной части
+        # запись отсортированной части
         with open(f"Parallel_sort/output_{i}.bin", 'wb') as f:
             f.write(arr)
 
